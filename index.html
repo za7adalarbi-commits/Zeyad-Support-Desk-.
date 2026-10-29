@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243a">
+  <title>Zeyad Support Desk</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">ZS</div>
+      <div><h1 data-i18n="appName">Zeyad Support Desk</h1><p data-i18n="tagline">مفكرة المكالمات والشكاوى والمتابعات</p></div>
+    </div>
+    <div class="top-actions">
+      <span id="connectionStatus" class="status-pill" data-i18n="notConfigured">غير مربوط بعد</span>
+      <button id="languageToggle" class="btn btn-ghost" type="button">English</button>
+      <button id="settingsBtn" class="btn btn-ghost" type="button" data-i18n="settings">الإعدادات</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <p class="eyebrow" data-i18n="personalWorkspace">مساحة عمل شخصية</p>
+        <h2 data-i18n="heroTitle">كل مكالمة، متابعة، وشكوى في مكان واحد.</h2>
+        <p class="muted" data-i18n="heroText">سجّل التفاصيل، حدّد موعد المتابعة، وصدّر تقرير المشكلة PDF عند الحاجة.</p>
+      </div>
+      <button id="newCaseBtn" class="btn btn-primary" type="button"><span aria-hidden="true">＋</span> <span data-i18n="newEntry">إضافة سجل</span></button>
+    </section>
+
+    <section class="stats-grid" aria-label="Summary">
+      <article class="stat-card"><span data-i18n="totalRecords">إجمالي السجلات</span><strong id="statTotal">0</strong><small data-i18n="allCallsAndCases">مكالمات وشكاوى</small></article>
+      <article class="stat-card"><span data-i18n="openCases">شكاوى مفتوحة</span><strong id="statOpen">0</strong><small data-i18n="needFollowUp">تحتاج متابعة</small></article>
+      <article class="stat-card"><span data-i18n="dueToday">متابعات اليوم</span><strong id="statDue">0</strong><small data-i18n="remindersScheduled">مواعيد متابعة مسجلة</small></article>
+      <article class="stat-card"><span data-i18n="overdue">متابعات متأخرة</span><strong id="statOverdue">0</strong><small data-i18n="pastDue">تجاوزت موعدها</small></article>
+    </section>
+
+    <section class="toolbar">
+      <div class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="ابحث بالعميل أو رقم الحجز أو الهاتف"></div>
+      <select id="statusFilter" aria-label="Status filter">
+        <option value="all" data-i18n="allStatuses">كل الحالات</option>
+        <option value="New" data-i18n="statusNew">جديدة</option>
+        <option value="In progress" data-i18n="statusProgress">قيد المتابعة</option>
+        <option value="Waiting rental company" data-i18n="statusRental">بانتظار شركة التأجير</option>
+        <option value="Waiting customer" data-i18n="statusCustomer">بانتظار العميل</option>
+        <option value="Escalated" data-i18n="statusEscalated">تحتاج تصعيد</option>
+        <option value="Resolved" data-i18n="statusResolved">تم الحل</option>
+      </select>
+      <button id="refreshBtn" class="btn btn-secondary" type="button" data-i18n="refresh">تحديث</button>
+    </section>
+
+    <section class="content-grid">
+      <div class="panel records-panel">
+        <div class="panel-heading"><div><h3 data-i18n="recordsTitle">السجلات والمتابعات</h3><p class="muted" data-i18n="recordsSubtitle">اضغط على أي سجل لعرض تفاصيله.</p></div><span id="recordCount" class="count-chip">0</span></div>
+        <div id="recordsList" class="records-list"><div class="empty-state" data-i18n="loading">جاري تحميل السجلات…</div></div>
+      </div>
+      <aside class="panel detail-panel">
+        <div class="panel-heading"><div><h3 data-i18n="detailsTitle">تفاصيل السجل</h3><p class="muted" data-i18n="detailsSubtitle">التحديثات بترتيبها الزمني.</p></div></div>
+        <div id="detailView" class="detail-empty"><span class="empty-icon">▤</span><p data-i18n="chooseRecord">اختر سجلًا من القائمة أو أضف سجلًا جديدًا.</p></div>
+      </aside>
+    </section>
+    <p class="footer-note" data-i18n="privacyNote">تنبيه: لا تستخدم بيانات عملاء حقيقية قبل موافقة شركتك على طريقة التخزين وصلاحيات الوصول.</p>
+  </main>
+
+  <dialog id="settingsDialog" class="modal">
+    <form id="settingsForm" method="dialog">
+      <div class="modal-heading"><div><h3 data-i18n="settingsTitle">إعدادات الربط</h3><p class="muted" data-i18n="settingsDescription">أدخل رابط تطبيق Google Apps Script ورمز الوصول. لن يتم تضمينهما في ملفات GitHub.</p></div><button class="icon-btn" type="button" data-close-dialog="settingsDialog" aria-label="Close">×</button></div>
+      <label><span data-i18n="scriptUrl">رابط تطبيق Apps Script المنشور</span><input id="scriptUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="url"></label>
+      <label><span data-i18n="accessToken">رمز الوصول الشخصي</span><input id="accessToken" type="password" placeholder="الصقه هنا" autocomplete="off"></label>
+      <div class="notice" data-i18n="tokenNotice">الرابط والرمز يُحفظان في هذا المتصفح فقط. لا تضع الرمز داخل ملفات المشروع أو المستودع.</div>
+      <div class="modal-actions"><button class="btn btn-secondary" id="clearSettingsBtn" type="button" data-i18n="clearSettings">مسح الإعدادات</button><button class="btn btn-primary" value="save" data-i18n="saveSettings">حفظ الإعدادات</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="recordDialog" class="modal modal-wide">
+    <form id="recordForm" method="dialog">
+      <div class="modal-heading"><div><h3 id="recordDialogTitle" data-i18n="newRecordTitle">إضافة سجل جديد</h3><p class="muted" data-i18n="recordFormSubtitle">سجّل بيانات الحجز والمكالمة والمتابعة القادمة.</p></div><button class="icon-btn" type="button" data-close-dialog="recordDialog" aria-label="Close">×</button></div>
+      <input id="recordId" type="hidden">
+      <div class="form-grid">
+        <label><span data-i18n="recordType">نوع السجل</span><select id="recordType"><option value="Call" data-i18n="callNote">مذكرة مكالمة</option><option value="Complaint" data-i18n="complaint">شكوى / مشكلة</option></select></label>
+        <label><span data-i18n="customerName">اسم العميل</span><input id="customerName" required maxlength="120"></label>
+        <label><span data-i18n="customerPhone">رقم العميل</span><input id="customerPhone" maxlength="40" inputmode="tel"></label>
+        <label><span data-i18n="bookingNumber">رقم الحجز</span><input id="bookingNumber" maxlength="80"></label>
+        <label><span data-i18n="identityNumber">رقم الهوية (اختياري)</span><input id="identityNumber" maxlength="80"></label>
+        <label><span data-i18n="rentalCompany">شركة التأجير</span><input id="rentalCompany" maxlength="120"></label>
+        <label><span data-i18n="branchName">اسم الفرع</span><input id="branchName" maxlength="120"></label>
+        <label><span data-i18n="deliveryDate">تاريخ تسليم السيارة</span><input id="deliveryDate" type="date"></label>
+        <label><span data-i18n="status">حالة المشكلة</span><select id="status"><option value="New" data-i18n="statusNew">جديدة</option><option value="In progress" data-i18n="statusProgress">قيد المتابعة</option><option value="Waiting rental company" data-i18n="statusRental">بانتظار شركة التأجير</option><option value="Waiting customer" data-i18n="statusCustomer">بانتظار العميل</option><option value="Escalated" data-i18n="statusEscalated">تحتاج تصعيد</option><option value="Resolved" data-i18n="statusResolved">تم الحل</option></select></label>
+        <label><span data-i18n="reminderDate">موعد التذكير</span><input id="reminderAt" type="datetime-local"></label>
+        <label><span data-i18n="reminderEmail">إيميل التذكير</span><input id="reminderEmail" type="email" placeholder="you@example.com"></label>
+        <label class="full"><span data-i18n="issueTitle">عنوان المشكلة / المكالمة</span><input id="issueTitle" required maxlength="180"></label>
+        <label class="full"><span data-i18n="issueDetails">تفاصيل المشكلة أو المكالمة</span><textarea id="issueDetails" rows="4" required maxlength="6000"></textarea></label>
+        <label class="full"><span data-i18n="actionTaken">الإجراء اللي اتعمل</span><textarea id="actionTaken" rows="3" maxlength="4000"></textarea></label>
+        <label class="full"><span data-i18n="nextAction">المطلوب في المتابعة القادمة</span><textarea id="nextAction" rows="3" maxlength="3000"></textarea></label>
+        <label class="full"><span data-i18n="updateNote">ملاحظة / تحديث جديد (يُضاف للتاريخ)</span><textarea id="updateNote" rows="2" maxlength="3000" placeholder="مثال: تم الاتصال بشركة التأجير والانتظار لردهم"></textarea></label>
+      </div>
+      <div class="modal-actions"><button class="btn btn-secondary" type="button" data-close-dialog="recordDialog" data-i18n="cancel">إلغاء</button><button class="btn btn-primary" id="saveRecordBtn" value="save" data-i18n="saveRecord">حفظ السجل</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
