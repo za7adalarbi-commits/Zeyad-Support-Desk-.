@@ -1,0 +1,16 @@
+@import "tailwindcss" source(none);
+
+/* The deployed GitHub Pages build must scan the vanilla JS templates too.
+   Most dashboard layout utilities are assembled inside assets/js/*.js. */
+@source "../index.html";
+@source "../assets/js";
+@source "./**/*.{js,ts,jsx,tsx}";
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* Rental Gate Brand Utility Helpers */
+@layer base {
+  html,
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'Plus Jakarta Sans', 'Segoe UI', Tahoma, Arial, sans-serif;
+  }
+}

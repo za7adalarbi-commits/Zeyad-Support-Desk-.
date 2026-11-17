@@ -1,0 +1,144 @@
+/* ==========================================================================
+   RENTAL GATE CRM — Dashboard KPIs & Chart.js Grid
+   ========================================================================== */
+
+.dashboard-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.segmented-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.segmented-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.segmented-btn.active {
+  background: var(--brand-primary);
+  color: var(--brand-on-primary);
+}
+
+.kpi-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  transition: border-color var(--transition-fast), transform var(--transition-fast), background-color var(--transition-fast);
+}
+
+.kpi-card:hover {
+  border-color: var(--brand-primary);
+  transform: translateY(-1px);
+}
+
+.kpi-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.kpi-value {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-card.kpi-danger .kpi-value {
+  color: var(--status-danger-text);
+}
+
+.kpi-card.kpi-warning .kpi-value {
+  color: var(--status-warning-text);
+}
+
+.kpi-card.kpi-success .kpi-value {
+  color: var(--status-success-text);
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.chart-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color var(--transition-fast);
+}
+
+.chart-card.chart-wide {
+  grid-column: span 2;
+}
+
+.chart-card-title {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.chart-canvas-wrap {
+  position: relative;
+  height: 270px;
+  width: 100%;
+}
+
+.detail-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-surface-subtle);
+  border-radius: var(--radius-md);
+}
+
+.detail-kv {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-k {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+.detail-v {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
