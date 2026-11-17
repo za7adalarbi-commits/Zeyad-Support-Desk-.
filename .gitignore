@@ -1,9 +1,0 @@
-# Never commit secrets or customer records
-.env
-.env.*
-*customer-data*
-*customer-data*.csv
-*.xlsx
-*.sqlite
-secrets*
-token*
