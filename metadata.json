@@ -1,0 +1,6 @@
+{
+  "name": "RENTAL GATE CRM",
+  "description": "نظام متقدم لإدارة الحجوزات ومتابعات العملاء والمشكلات وأداء الموظفين لشركة Rental Gate عبر GitHub Pages وGoogle Sheets وGoogle Apps Script.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
